@@ -1,0 +1,99 @@
+var app = require('express')()
+  , server = require('http').createServer(app)
+  , io = require('socket.io').listen(server)
+  , http = require('http')
+  , algorithmsRandomForest = require('./Algorithms/RandomForest.js')
+  , events = require('./Events/Events.js')
+  , query = require('./Queries/Queries.js')
+  , statistics = require('./Statistics/Statistics.js');
+
+server.listen(8080);
+//server.listen(process.env.PORT, process.env.IP); 
+
+// Accessing via HTTP
+app.get('/*', function (req, res) {
+  res.sendfile(__dirname + '/staticFiles/index.json');
+});
+
+io.sockets.on('connection', function (socket) {
+
+  socket.on('algorithm_random_forest', function(data){
+        console.log('Running algorithm_random_forest');
+      
+        algorithmsRandomForest.getResult(data, function(err,result){
+            if(err){
+                socket.emit('algorithms_io_api', { data: err });
+            }else{
+                socket.emit('algorithms_io_api', { data: result });
+            }
+        });
+        //algorithms.run('randomForest', data);
+        //algorithms.run('svm', data);
+  });
+  socket.on('algorithm_svm', function(data){
+        console.log('Running algorithm_svm');
+        
+        algorithmsRandomForest.getResult(data, function(err,result){
+            if(err){
+                socket.emit('algorithms_io_api', { data: err });
+            }else{
+                socket.emit('algorithms_io_api', { data: result });
+            }
+        });
+  });
+  socket.on('event_save', function(data){
+        console.log('Running event_save');
+        
+        // Save the event
+        events.save(data, function(err,result){
+            if(err){
+                socket.emit('event_save_output', { data: err });
+            }else{
+                socket.emit('event_save_output', { data: result });
+            }
+        });
+  });
+  socket.on('query_get_data_by_range', function(data){
+        console.log('Running query_get_data_by_range');
+        
+        // Save the event
+        query.get_data_by_range(data, function(err,result){
+            if(err){
+                socket.emit('query_get_data_by_range', { data: err });
+            }else{
+                socket.emit('query_get_data_by_range', { data: result });
+            }
+        });
+  });
+  socket.on('statistic_eps_stat_device', function(data){
+        
+        while(true){
+            setTimeout((function() {
+                console.log('Running statistic_eps_stat_device');
+
+                statistics.eps_stat_device(data, function(err,result){
+                    if(err){
+                        socket.emit('statistic_eps_stat_device', { data: err });
+                    }else{
+                        socket.emit('statistic_eps_stat_device', { data: result });
+                    }
+                });
+
+            }), 1000);
+        }
+  });
+  socket.on('statistic_get_rolling_avg_and_std', function(data){
+        console.log('Running statistic_get_rolling_avg_and_std');
+        
+        // Save the event
+        statistics.get_rolling_avg_and_std(data, function(err,result){
+            if(err){
+                socket.emit('statistic_get_rolling_avg_and_std', { data: err });
+            }else{
+                socket.emit('statistic_get_rolling_avg_and_std', { data: result });
+            }
+        });
+  });
+});
+
+

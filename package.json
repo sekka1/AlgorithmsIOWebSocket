@@ -1,0 +1,21 @@
+{
+    "name": "AlgorithmsIOWebSocket",
+    "description": "(pending)",
+    "version": "0.0.1",
+    "main": "./AlgorithmsIOWebSocket.js",
+    "author": {
+        "name": "sekka1",
+        "email": "garlandk@gmail.com"
+    },
+    "keywords": [],
+    "licenses": {
+        "type": "none"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/YOUR_LOGIN/AlgorithmsIOWebSocket.git"
+    },
+    "bugs": {
+        "web": "http://github.com/YOUR_LOGIN/AlgorithmsIOWebSocket/issues"
+    }
+}
