@@ -7,8 +7,8 @@ var app = require('express')()
   , query = require('./Queries/Queries.js')
   , statistics = require('./Statistics/Statistics.js');
 
-server.listen(8080);
-//server.listen(process.env.PORT, process.env.IP); 
+//console.log(process.env);
+server.listen(process.env.PORT, process.env.IP); 
 
 // Accessing via HTTP
 app.get('/*', function (req, res) {

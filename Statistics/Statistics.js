@@ -1,6 +1,7 @@
-/* 
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * Statistics
+ * 
+ * @author gkan
  */
 
 exports.eps_stat_device = function(data, callback){

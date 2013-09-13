@@ -1,6 +1,7 @@
-/* 
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+/**
+* Queries
+ * 
+ * @author gkan
  */
 
 exports.get_data_by_range = function(data, callback){
