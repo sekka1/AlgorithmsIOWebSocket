@@ -66,21 +66,16 @@ io.sockets.on('connection', function (socket) {
         });
   });
   socket.on('statistic_eps_stat_device', function(data){
-        
-        while(true){
-            setTimeout((function() {
-                console.log('Running statistic_eps_stat_device');
 
-                statistics.eps_stat_device(data, function(err,result){
-                    if(err){
-                        socket.emit('statistic_eps_stat_device', { data: err });
-                    }else{
-                        socket.emit('statistic_eps_stat_device', { data: result });
-                    }
-                });
+        console.log('Running statistic_eps_stat_device');
 
-            }), 1000);
-        }
+        statistics.eps_stat_device(data, function(err,result){
+            if(err){
+                socket.emit('statistic_eps_stat_device', { data: err });
+            }else{
+                socket.emit('statistic_eps_stat_device', { data: result });
+            }
+        });
   });
   socket.on('statistic_get_rolling_avg_and_std', function(data){
         console.log('Running statistic_get_rolling_avg_and_std');
