@@ -28,7 +28,10 @@ exports.getPoolConnection = function(){
 
 exports.timeNow = function(){
     var now = new Date();
-    var mysql_now = now.getFullYear() + '-' + now.getMonth() + '-' + now.getDay() + ' ' + now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds() + '.' + now.getMilliseconds();
-    console.log(mysql_now);
+    
+    var month = now.getMonth() + 1; // month is a 0 based index
+    
+    var mysql_now = now.getFullYear() + '-' + month + '-' + now.getDate() + ' ' + now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds() + '.' + now.getMilliseconds();
+    //console.log(mysql_now);
     return mysql_now;
 }

@@ -2,10 +2,10 @@ var app = require('express')()
   , server = require('http').createServer(app)
   , io = require('socket.io').listen(server)
   , http = require('http')
-  , algorithmsRandomForest = require('./Algorithms/RandomForest.js')
-  , events = require('./Events/Events.js')
-  , query = require('./Queries/Queries.js')
-  , statistics = require('./Statistics/Statistics.js');
+  , algorithmsRandomForest = require('./Controllers/Algorithms/RandomForest.js')
+  , events = require('./Controllers/Events/Events.js')
+  , query = require('./Controllers/Queries/Queries.js')
+  , statistics = require('./Controllers/Statistics/Statistics.js');
 
 //console.log(process.env);
 server.listen(process.env.PORT, process.env.IP); 
@@ -74,6 +74,18 @@ io.sockets.on('connection', function (socket) {
                 socket.emit('statistic_eps_stat_device', { data: err });
             }else{
                 socket.emit('statistic_eps_stat_device', { data: result });
+            }
+        });
+  });
+    socket.on('statistic_eps_stat_auth_token', function(data){
+
+        console.log('Running statistic_eps_stat_auth_token');
+
+        statistics.eps_stat_auth_token(data, function(err,result){
+            if(err){
+                socket.emit('statistic_eps_stat_auth_token', { data: err });
+            }else{
+                socket.emit('statistic_eps_stat_auth_token', { data: result });
             }
         });
   });

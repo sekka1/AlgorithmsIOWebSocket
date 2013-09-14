@@ -5,7 +5,7 @@
  */
 
 // Event Model
-var eventsModel = require('../Models/Events.js');
+var eventsModel = require('../../Models/Events.js');
 
 /**
  * Save an event
