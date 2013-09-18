@@ -45,7 +45,19 @@ io.sockets.on('connection', function (socket) {
         console.log('Running event_save');
         
         // Save the event
-        events.save(data, function(err,result){
+        events.saveGeneric(data, function(err,result){
+            if(err){
+                socket.emit('event_save_output', { data: err });
+            }else{
+                socket.emit('event_save_output', { data: result });
+            }
+        });
+  });
+  socket.on('event_save_accelerometer_gyroscope', function(data){
+        console.log('Running event_save_accelerometer_gyroscope');
+        
+        // Save the event
+        events.saveAccelerometerGyroscope(data, function(err,result){
             if(err){
                 socket.emit('event_save_output', { data: err });
             }else{
