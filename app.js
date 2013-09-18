@@ -30,6 +30,17 @@ io.sockets.on('connection', function (socket) {
         //algorithms.run('randomForest', data);
         //algorithms.run('svm', data);
   });
+  socket.on('algorithm_random_forest_rolling_samples', function(data){
+        console.log('Running algorithm_random_forest_rolling_samples');
+      
+        algorithmsRandomForest.getResultRollingSamples(data, function(err,result){
+            if(err){
+                socket.emit('algorithm_random_forest_rolling_samples_result', { data: err });
+            }else{
+                socket.emit('algorithm_random_forest_rolling_samples_result', { data: result });
+            }
+        });
+  });
   socket.on('algorithm_svm', function(data){
         console.log('Running algorithm_svm');
         
@@ -45,7 +56,19 @@ io.sockets.on('connection', function (socket) {
         console.log('Running event_save');
         
         // Save the event
-        events.save(data, function(err,result){
+        events.saveGeneric(data, function(err,result){
+            if(err){
+                socket.emit('event_save_output', { data: err });
+            }else{
+                socket.emit('event_save_output', { data: result });
+            }
+        });
+  });
+  socket.on('event_save_accelerometer_gyroscope', function(data){
+        console.log('Running event_save_accelerometer_gyroscope');
+        
+        // Save the event
+        events.saveAccelerometerGyroscope(data, function(err,result){
             if(err){
                 socket.emit('event_save_output', { data: err });
             }else{
