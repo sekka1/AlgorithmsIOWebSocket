@@ -5,6 +5,8 @@
 var http = require('http');
 var randomForestsModel = require('../../Models/Algorithms/RandomForest/RandomForestRollingSamples.js');
 
+var restAlgorithmURLPath = '/jobs/swagger/54';
+
 /**
  * Runs the Random Forest Algorithm.  The user passes in the "test" data into
  * the algorithm.
@@ -13,13 +15,13 @@ var randomForestsModel = require('../../Models/Algorithms/RandomForest/RandomFor
  * @param {function} callback
  */
 exports.getResult = function(params, callback){
-    
-    // Save and remove the rest path from the data obj
-    var restPath = params.algorithmPath;
-    delete params.algorithmPath;
 
     // Call Algorithms.io REST API
     var querystring = require('querystring');
+
+    // Add default params
+    params.method = 'sync';
+    params.outputType = 'json';
 
     // Put all passed in variables into the post data
     var postData = querystring.stringify(params);
@@ -27,7 +29,7 @@ exports.getResult = function(params, callback){
     var options = {
             host: 'api.algorithms.io',
             port: 80,
-            path: restPath,
+            path: restAlgorithmURLPath,
             method: 'POST',
             headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
@@ -69,7 +71,6 @@ exports.getResultRollingSamples = function(params, callback){
             callback(err,null);
         }else{
             // Post Params
-            var postParams = {};
             params.test = '{"Accelerometer.X.avg":'+avg_accelerometer_x+',"Accelerometer.X.std":'+std_accelerometer_x+',"Accelerometer.Y.avg":'+avg_accelerometer_y+',"Accelerometer.Y.std":'+std_accelerometer_y+',"Accelerometer.Z.avg":'+avg_accelerometer_z+',"Accelerometer.Z.std":'+std_accelerometer_z+',"Gyroscope.X.avg":'+avg_gyroscope_x+',"Gyroscope.X.std":'+std_gyroscope_x+',"Gyroscope.Y.avg":'+avg_gyroscope_y+',"Gyroscope.Y.std":'+std_gyroscope_y+',"Gyroscope.Z.avg":'+avg_gyroscope_z+',"Gyroscope.Z.std":'+std_gyroscope_z+',"Rotation.X.avg":'+avg_rotation_x+',"Rotation.X.std":'+std_rotation_x+',"Rotation.Y.avg":'+avg_rotation_y+',"Rotation.Y.std":'+std_rotation_y+',"Rotation.Z.avg":'+avg_rotation_z+',"Rotation.Z.std":'+std_rotation_z+'}';
             params.method = 'sync';
             params.outputType = 'json';
