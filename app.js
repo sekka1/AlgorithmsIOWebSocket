@@ -22,9 +22,9 @@ io.sockets.on('connection', function (socket) {
       
         algorithmsRandomForest.getResult(data, function(err,result){
             if(err){
-                socket.emit('algorithms_io_api', { data: err });
+                socket.emit('algorithm_random_forest_result', { data: err });
             }else{
-                socket.emit('algorithms_io_api', { data: result });
+                socket.emit('algorithm_random_forest_result', { data: result });
             }
         });
         //algorithms.run('randomForest', data);
@@ -46,9 +46,9 @@ io.sockets.on('connection', function (socket) {
         
         algorithmsRandomForest.getResult(data, function(err,result){
             if(err){
-                socket.emit('algorithms_io_api', { data: err });
+                socket.emit('algorithm_svm_result', { data: err });
             }else{
-                socket.emit('algorithms_io_api', { data: result });
+                socket.emit('algorithm_svm_result', { data: result });
             }
         });
   });
@@ -58,21 +58,21 @@ io.sockets.on('connection', function (socket) {
         // Save the event
         events.saveGeneric(data, function(err,result){
             if(err){
-                socket.emit('event_save_output', { data: err });
+                socket.emit('event_save_result', { data: err });
             }else{
-                socket.emit('event_save_output', { data: result });
+                socket.emit('event_save_result', { data: result });
             }
         });
   });
-  socket.on('event_save_accelerometer_gyroscope', function(data){
-        console.log('Running event_save_accelerometer_gyroscope');
+  socket.on('event_save_motion', function(data){
+        console.log('Running event_save_motion');
         
         // Save the event
         events.saveAccelerometerGyroscope(data, function(err,result){
             if(err){
-                socket.emit('event_save_output', { data: err });
+                socket.emit('event_save_motion_result', { data: err });
             }else{
-                socket.emit('event_save_output', { data: result });
+                socket.emit('event_save_motion_result', { data: result });
             }
         });
   });
