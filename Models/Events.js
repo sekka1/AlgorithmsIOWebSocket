@@ -15,7 +15,7 @@ var pool = db.getPoolConnection();
  * @param {string} device_id
  * @param {json} data
  * @param {string} label
- * @param {type} callback
+ * @param {function} callback
  */
 exports.insertGeneric = function(authToken, device_id, data, label, callback){
     
@@ -49,7 +49,7 @@ exports.insertGeneric = function(authToken, device_id, data, label, callback){
  * @param {string} device_id
  * @param {json} data
  * @param {string} label
- * @param {type} callback
+ * @param {function} callback
  */
 exports.insertAccelerometerGyroscope = function(authToken, device_id, accelerometer_x, accelerometer_y, accelerometer_z, gyroscope_x, gyroscope_y, gyroscope_z, rotation_x, rotation_y, rotation_z, label, callback){
     

@@ -9,8 +9,8 @@ var statisticModel = require('../../Models/Statistics.js');
 /**
  * Get EPS per device_id
  * 
- * @param {type} data
- * @param {type} callback
+ * @param {object} data
+ * @param {function} callback
  */
 exports.eps_stat_device = function(data, callback){
         
@@ -25,8 +25,8 @@ exports.eps_stat_device = function(data, callback){
 /**
  * Get EPS per auth token
  * 
- * @param {type} data
- * @param {type} callback
+ * @param {object} data
+ * @param {function} callback
  */
 exports.eps_stat_auth_token = function(data, callback){
         

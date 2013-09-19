@@ -1,5 +1,5 @@
 /**
- * Events
+ * Events Controller
  * 
  * @author gkan
  */
@@ -12,9 +12,8 @@ var eventsModel = require('../../Models/Events.js');
  * 
  * We do prefer the data to be in json though.
  * 
- * @param {type} params
- * @param {type} callback
- * @returns {undefined}
+ * @param {object} params
+ * @param {function} callback
  */
 exports.saveGeneric = function(params, callback){
     
@@ -32,9 +31,8 @@ exports.saveGeneric = function(params, callback){
  * 
  * The accelerometer x, y , z and gyroscope x, y, z are passed in
  * 
- * @param {type} params
- * @param {type} callback
- * @returns {undefined}
+ * @param {object} params
+ * @param {function} callback
  */
 exports.saveAccelerometerGyroscope = function(params, callback){
 

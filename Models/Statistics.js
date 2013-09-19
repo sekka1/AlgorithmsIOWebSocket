@@ -11,9 +11,7 @@ var pool = db.getPoolConnection();
  * 
  * @param {string} authToken
  * @param {string} device_id
- * @param {json} data
- * @param {string} label
- * @param {type} callback
+ * @param {function} callback
  */
 exports.getEPSStatPerDevice = function(authToken, device_id, callback){
     
@@ -36,9 +34,7 @@ exports.getEPSStatPerDevice = function(authToken, device_id, callback){
  * Get EPS per auth token
  * 
  * @param {string} authToken
- * @param {json} data
- * @param {string} label
- * @param {type} callback
+ * @param {function} callback
  */
 exports.getEPSStatPerAuthToken = function(authToken, callback){
     
