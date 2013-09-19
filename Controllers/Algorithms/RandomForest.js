@@ -71,6 +71,7 @@ exports.getResultRollingSamples = function(params, callback){
             callback(err,null);
         }else{
             // Post Params
+            delete params.device_id;
             params.test = '{"Accelerometer.X.avg":'+avg_accelerometer_x+',"Accelerometer.X.std":'+std_accelerometer_x+',"Accelerometer.Y.avg":'+avg_accelerometer_y+',"Accelerometer.Y.std":'+std_accelerometer_y+',"Accelerometer.Z.avg":'+avg_accelerometer_z+',"Accelerometer.Z.std":'+std_accelerometer_z+',"Gyroscope.X.avg":'+avg_gyroscope_x+',"Gyroscope.X.std":'+std_gyroscope_x+',"Gyroscope.Y.avg":'+avg_gyroscope_y+',"Gyroscope.Y.std":'+std_gyroscope_y+',"Gyroscope.Z.avg":'+avg_gyroscope_z+',"Gyroscope.Z.std":'+std_gyroscope_z+',"Rotation.X.avg":'+avg_rotation_x+',"Rotation.X.std":'+std_rotation_x+',"Rotation.Y.avg":'+avg_rotation_y+',"Rotation.Y.std":'+std_rotation_y+',"Rotation.Z.avg":'+avg_rotation_z+',"Rotation.Z.std":'+std_rotation_z+'}';
             params.method = 'sync';
             params.outputType = 'json';
