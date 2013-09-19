@@ -51,7 +51,7 @@ exports.insertGeneric = function(authToken, device_id, data, label, callback){
  * @param {string} label
  * @param {type} callback
  */
-exports.insertAccelerometerGyroscope = function(authToken, device_id, accelerometer_x, accelerometer_y, accelerometer_z, gyroscope_x, gyroscope_y, gyroscope_z, label, callback){
+exports.insertAccelerometerGyroscope = function(authToken, device_id, accelerometer_x, accelerometer_y, accelerometer_z, gyroscope_x, gyroscope_y, gyroscope_z, rotation_x, rotation_y, rotation_z, label, callback){
     
     pool.getConnection(function(err, connection) {
         connection.query('INSERT INTO time_series_accelerometer_gyroscope SET ?', {auth_token: authToken, 
@@ -62,6 +62,9 @@ exports.insertAccelerometerGyroscope = function(authToken, device_id, accelerome
                                                             gyroscope_x: gyroscope_x,
                                                             gyroscope_y: gyroscope_y,
                                                             gyroscope_z: gyroscope_z,
+                                                            rotation_x: rotation_x,
+                                                            rotation_y: rotation_y,
+                                                            rotation_z: rotation_z,
                                                             label: label, 
                                                             datetime_created: db.timeNow()}, 
                                                         function(err, result) {

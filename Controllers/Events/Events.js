@@ -37,8 +37,8 @@ exports.saveGeneric = function(params, callback){
  * @returns {undefined}
  */
 exports.saveAccelerometerGyroscope = function(params, callback){
-    
-    eventsModel.insertAccelerometerGyroscope(params.authToken, params.device_id, params.accelerometer_x, params.accelerometer_y, params.accelerometer_z, params.gyroscope_x, params.gyroscope_y, params.gyroscope_z, params.label, function(err,result){
+
+    eventsModel.insertAccelerometerGyroscope(params.authToken, params.device_id, params.accelerometer_x, params.accelerometer_y, params.accelerometer_z, params.gyroscope_x, params.gyroscope_y, params.gyroscope_z, params.rotation_x, params.rotation_y, params.rotation_z, params.label, function(err,result){
         if(err){
             callback(err,null);
         }else{
