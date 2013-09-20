@@ -4,7 +4,7 @@
  * @author gkan
  */
 // Event Model
-var statisticModel = require('../../Models/Statistics.js');
+var statisticModel = require('../../Models/Statistics/EPS.js');
 
 /**
  * Get EPS per device_id

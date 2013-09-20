@@ -3,8 +3,11 @@
  * 
  */
 
-var db = require('./db.js');
+var db = require('./../db.js');
 var pool = db.getPoolConnection();
+
+// Table to calculate EPS stats on.
+var tableName = 'time_series_accelerometer_gyroscope';
 
 /**
  * Get EPS per device_id
@@ -16,7 +19,7 @@ var pool = db.getPoolConnection();
 exports.getEPSStatPerDevice = function(authToken, device_id, callback){
     
     pool.getConnection(function(err, connection) {
-        connection.query('select count(*) as count from time_series where  auth_token = "'+authToken+'" and device_id = "'+device_id+'" and datetime_created BETWEEN DATE_SUB(NOW(), INTERVAL 1 SECOND) AND NOW()', function(err, result) {
+        connection.query('select count(*) as count from '+tableName+' where  auth_token = "'+authToken+'" and device_id = "'+device_id+'" and datetime_created BETWEEN DATE_SUB(NOW(), INTERVAL 1 SECOND) AND NOW()', function(err, result) {
             
             if (err) throw err;
 
@@ -39,7 +42,7 @@ exports.getEPSStatPerDevice = function(authToken, device_id, callback){
 exports.getEPSStatPerAuthToken = function(authToken, callback){
     
     pool.getConnection(function(err, connection) {
-        connection.query('select count(*) as count from time_series where  auth_token = "'+authToken+'" and datetime_created BETWEEN DATE_SUB(NOW(), INTERVAL 1 SECOND) AND NOW()', function(err, result) {
+        connection.query('select count(*) as count from '+tableName+' where  auth_token = "'+authToken+'" and datetime_created BETWEEN DATE_SUB(NOW(), INTERVAL 1 SECOND) AND NOW()', function(err, result) {
             
             if (err) throw err;
 
