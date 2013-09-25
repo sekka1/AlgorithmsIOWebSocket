@@ -20,6 +20,7 @@ io.sockets.on('connection', function (socket) {
     // Interval Vars
     var interval_statistic_eps_stat_device;
     var interval_statistic_eps_stat_auth_token;
+    var interval_query_get_last_motion_data;
 
     /////////////////////////////////////////////////////////////////////////////
     //
@@ -109,7 +110,7 @@ io.sockets.on('connection', function (socket) {
     socket.on('query_get_last_motion_data', function(data){
 
         // Run interval at 1 second
-        interval_statistic_eps_stat_device = setInterval(function(){
+        interval_query_get_last_motion_data = setInterval(function(){
             console.log('Running query_get_last_motion_data');
 
 
@@ -186,6 +187,7 @@ io.sockets.on('connection', function (socket) {
         // Run clean up for interval methods
         clearInterval(interval_statistic_eps_stat_device);
         clearInterval(interval_statistic_eps_stat_auth_token);
+        clearInterval(interval_query_get_last_motion_data);
     })
 
 });
