@@ -24,7 +24,15 @@ exports.getLastMotionData = function(authToken, device_id, callback){
 
             if (err) throw err;
 
-            callback(null, result[0].accelerometer_x, result[0].accelerometer_y, result[0].accelerometer_z, result[0].gyroscope_x, result[0].gyroscope_y, result[0].gyroscope_z, result[0].rotation_x, result[0].rotation_y, result[0].rotation_z);
+
+            if(typeof result[0] != 'undefined'){
+                callback(null, result[0].accelerometer_x, result[0].accelerometer_y, result[0].accelerometer_z, result[0].gyroscope_x, result[0].gyroscope_y, result[0].gyroscope_z, result[0].rotation_x, result[0].rotation_y, result[0].rotation_z);
+            }else{
+                // No results.  User might not have inserted any events yet for this device
+                callback(null, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+            }
+
+
 
             // And done with the connection.
             connection.release();

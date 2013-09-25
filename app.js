@@ -98,7 +98,6 @@ io.sockets.on('connection', function (socket) {
     socket.on('query_get_data_by_range', function(data){
         console.log('Running query_get_data_by_range');
 
-        // Save the event
         query.get_data_by_range(data, function(err,result){
             if(err){
                 socket.emit('query_get_data_by_range', { data: err });
@@ -108,16 +107,20 @@ io.sockets.on('connection', function (socket) {
         });
     });
     socket.on('query_get_last_motion_data', function(data){
-        console.log('Running query_get_last_motion_data');
 
-        // Save the event
-        query.get_last_motion_data(data, function(err,result){
-            if(err){
-                socket.emit('query_get_last_motion_data', { data: err });
-            }else{
-                socket.emit('query_get_last_motion_data', { data: result });
-            }
-        });
+        // Run interval at 1 second
+        interval_statistic_eps_stat_device = setInterval(function(){
+            console.log('Running query_get_last_motion_data');
+
+
+            query.get_last_motion_data(data, function(err,result){
+                if(err){
+                    socket.emit('query_get_last_motion_data', { data: err });
+                }else{
+                    socket.emit('query_get_last_motion_data', { data: result });
+                }
+            });
+        }, 1000);
     });
     /////////////////////////////////////////////////////////////////////////////
     //
