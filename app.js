@@ -21,7 +21,11 @@ io.sockets.on('connection', function (socket) {
     var interval_statistic_eps_stat_device;
     var interval_statistic_eps_stat_auth_token;
 
-
+    /////////////////////////////////////////////////////////////////////////////
+    //
+    // Algorithms
+    //
+    /////////////////////////////////////////////////////////////////////////////
     socket.on('algorithm_random_forest', function(data){
         console.log('Running algorithm_random_forest');
 
@@ -57,6 +61,11 @@ io.sockets.on('connection', function (socket) {
             }
         });
     });
+    /////////////////////////////////////////////////////////////////////////////
+    //
+    // Events
+    //
+    /////////////////////////////////////////////////////////////////////////////
     socket.on('event_save', function(data){
         console.log('Running event_save');
 
@@ -81,6 +90,11 @@ io.sockets.on('connection', function (socket) {
             }
         });
     });
+    /////////////////////////////////////////////////////////////////////////////
+    //
+    // Queries
+    //
+    /////////////////////////////////////////////////////////////////////////////
     socket.on('query_get_data_by_range', function(data){
         console.log('Running query_get_data_by_range');
 
@@ -93,6 +107,23 @@ io.sockets.on('connection', function (socket) {
             }
         });
     });
+    socket.on('query_get_last_motion_data', function(data){
+        console.log('Running query_get_last_motion_data');
+
+        // Save the event
+        query.get_last_motion_data(data, function(err,result){
+            if(err){
+                socket.emit('query_get_last_motion_data', { data: err });
+            }else{
+                socket.emit('query_get_last_motion_data', { data: result });
+            }
+        });
+    });
+    /////////////////////////////////////////////////////////////////////////////
+    //
+    // Statistics
+    //
+    /////////////////////////////////////////////////////////////////////////////
     socket.on('statistic_eps_stat_device', function(data){
 
         // Run interval at 1 second
@@ -140,7 +171,11 @@ io.sockets.on('connection', function (socket) {
         });
     });
 
-    // User disconnection
+    /////////////////////////////////////////////////////////////////////////////
+    //
+    // Disconnection/Clean up
+    //
+    /////////////////////////////////////////////////////////////////////////////
     socket.on('disconnect', function() {
 
         console.log('Connection disconnected...');
