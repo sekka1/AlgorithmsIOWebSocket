@@ -26,7 +26,10 @@ exports.insertGeneric = function(authToken, device_id, data, label, callback){
                                                             label: label, 
                                                             datetime_created: db.timeNow()}, 
                                                         function(err, result) {
-            if (err) throw err;
+                                                            if (err){
+                                                                //throw err;
+                                                                console.log('Error: Models/Events/insertGeneric', err);
+                                                            }
 
             console.log('row id: ' + result.insertId);
 
@@ -68,7 +71,10 @@ exports.insertAccelerometerGyroscope = function(authToken, device_id, accelerome
                                                             label: label, 
                                                             datetime_created: db.timeNow()}, 
                                                         function(err, result) {
-            if (err) throw err;
+                                                            if (err){
+                                                                //throw err;
+                                                                console.log('Error: Models/Events/insertAccelerometerGyroscope', err);
+                                                            }
 
             console.log('row id: ' + result.insertId);
 

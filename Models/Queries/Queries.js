@@ -22,7 +22,10 @@ exports.getLastMotionData = function(authToken, device_id, callback){
     pool.getConnection(function(err, connection) {
         connection.query('select accelerometer_x, accelerometer_y, accelerometer_z, gyroscope_x, gyroscope_y, gyroscope_z, rotation_x, rotation_y, rotation_z, label, datetime_created as count from '+tableName+' where  auth_token = "'+authToken+'" and device_id = "'+device_id+'" order by datetime_created desc limit 1', function(err, result) {
 
-            if (err) throw err;
+            if (err){
+                //throw err;
+                console.log('Error: Models/Queries/getLastMotionData', err);
+            }
 
 
             if(typeof result[0] != 'undefined'){
