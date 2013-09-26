@@ -17,7 +17,9 @@ if (cluster.isMaster) {
     }
 
     cluster.on('exit', function(worker, code, signal) {
-        console.log('worker ' + worker.process.pid + ' died');
+        var exitCode = worker.process.exitCode;
+        console.log('worker ' + worker.process.pid + ' died ('+exitCode+'). restarting...');
+        cluster.fork();
     });
 } else {
     // Start a socket.io server, configure it to use ClusterStore.
