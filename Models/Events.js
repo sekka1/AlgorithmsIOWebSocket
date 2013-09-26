@@ -76,13 +76,25 @@ exports.insertAccelerometerGyroscope = function(authToken, device_id, accelerome
                                                                 console.log('Error: Models/Events/insertAccelerometerGyroscope', err);
                                                             }
 
-            console.log('row id: ' + result.insertId);
+            //console.log('row id: ' + result.insertId);
 
-            var result = 'success';
-            callback(null, result);
+
+                                                            var result = 'success';
+
+                                                            try{
+                                                                callback(null, result);
+
+                                                                // And done with the connection.
+                                                                connection.release();
+                                                            }catch(e){
+                                                                console.log("Error: MySQL mem leak" + e);
+                                                                //console.log(e);
+                                                            }finally{
+                                                                connection.release();
+                                                            }
+
             
-            // And done with the connection.
-            connection.release();
+
         });
     });
 };

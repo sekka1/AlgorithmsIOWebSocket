@@ -13,7 +13,7 @@ var pool = mysql.createPool({
   user     : process.env.MYSQL_USER,
   database : process.env.MYSQL_DATABASE,
   password : process.env.MYSQL_PASSWORD,
-  connectionLimit : 100,
+  connectionLimit : 25,
   waitForConnections: true,
   queueLimit: 0
 });

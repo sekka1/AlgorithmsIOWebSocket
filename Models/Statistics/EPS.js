@@ -29,10 +29,20 @@ exports.getEPSStatPerDevice = function(authToken, device_id, callback){
             //console.log('row id: ' + result.insertId);
 
             //var result = 'success';
-            callback(null, result[0].count);
+
+            try{
+                callback(null, result[0].count);
+
+                // And done with the connection.
+                connection.release();
+            }catch(e){
+                console.log("Error: MySQL mem leak" + e);
+                //console.log(e);
+            }finally{
+                connection.release();
+            }
             
-            // And done with the connection.
-            connection.release();
+
         });
     });
 };
@@ -55,10 +65,19 @@ exports.getEPSStatPerAuthToken = function(authToken, callback){
             //console.log('row id: ' + result.insertId);
 
             //var result = 'success';
-            callback(null, result[0].count);
-            
-            // And done with the connection.
-            connection.release();
+
+            try{
+                callback(null, result[0].count);
+
+                // And done with the connection.
+                connection.release();
+            }catch(e){
+                console.log("Error: MySQL mem leak" + e);
+                //console.log(e);
+            }finally{
+                connection.release();
+            }
+
         });
     });
 };
