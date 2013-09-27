@@ -32,13 +32,11 @@ exports.getLastMotionData = function(authToken, device_id, callback){
 
                 try{
                     callback(null, result[0].accelerometer_x, result[0].accelerometer_y, result[0].accelerometer_z, result[0].gyroscope_x, result[0].gyroscope_y, result[0].gyroscope_z, result[0].rotation_x, result[0].rotation_y, result[0].rotation_z);
-
-                    // And done with the connection.
-                    connection.release();
                 }catch(e){
                     console.log("Error: MySQL mem leak" + e);
                     //console.log(e);
                 }finally{
+                    // And done with the connection.
                     connection.release();
                 }
             }else{
@@ -47,13 +45,11 @@ exports.getLastMotionData = function(authToken, device_id, callback){
 
                 try{
                     callback(null, 0, 0, 0, 0, 0, 0, 0, 0, 0);
-
-                    // And done with the connection.
-                    connection.release();
                 }catch(e){
                     console.log("Error: MySQL mem leak" + e);
                     //console.log(e);
                 }finally{
+                    // And done with the connection.
                     connection.release();
                 }
             }

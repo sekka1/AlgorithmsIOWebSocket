@@ -75,13 +75,11 @@ exports.getRollingSampleAvgSTD = function(authToken, device_id, callback){
 
             try{
                 callback(null, avg_accelerometer_x, std_accelerometer_x, avg_accelerometer_y, std_accelerometer_y, avg_accelerometer_z, std_accelerometer_z, avg_gyroscope_x, std_gyroscope_x, avg_gyroscope_y, std_gyroscope_y, avg_gyroscope_z, std_gyroscope_z, avg_rotation_x, std_rotation_x, avg_rotation_y, std_rotation_y, avg_rotation_z, std_rotation_z);
-
-                // And done with the connection.
-                connection.release();
             }catch(e){
                 console.log("Error: MySQL mem leak" + e);
                 //console.log(e);
             }finally{
+                // And done with the connection.
                 connection.release();
             }
         });

@@ -34,7 +34,15 @@ exports.insertGeneric = function(authToken, device_id, data, label, callback){
             console.log('row id: ' + result.insertId);
 
             var result = 'success';
-            callback(null, result);
+                                                            try{
+                                                                callback(null, result);
+                                                            }catch(e){
+                                                                console.log("Error: MySQL mem leak" + e);
+                                                                //console.log(e);
+                                                            }finally{
+                                                                // And done with the connection.
+                                                                connection.release();
+                                                            }
             
             // And done with the connection.
             connection.release();
@@ -83,13 +91,11 @@ exports.insertAccelerometerGyroscope = function(authToken, device_id, accelerome
 
                                                             try{
                                                                 callback(null, result);
-
-                                                                // And done with the connection.
-                                                                connection.release();
                                                             }catch(e){
                                                                 console.log("Error: MySQL mem leak" + e);
                                                                 //console.log(e);
                                                             }finally{
+                                                                // And done with the connection.
                                                                 connection.release();
                                                             }
 
