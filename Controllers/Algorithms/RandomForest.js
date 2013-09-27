@@ -100,8 +100,16 @@ exports.getResultRollingSamples = function(params, callback){
                 res.setEncoding('utf8');
                 res.on('data', function (chunk) {
                     console.log('BODY: ' + chunk);
-                    //socket.emit('algorithms_io_api', { data: chunk });
-                    callback(null,chunk);
+
+                    try{
+                        callback(null,chunk);
+                    }catch(e){
+                        console.log("Error: " + e);
+                    }finally{
+                        //callback(null,'[{"output":"error"}]');
+                    }
+
+
                 });
                 req.on('error', function(e) {
                     console.log('problem with request: ' + e.message);
