@@ -9,7 +9,7 @@ var pool = db.getPoolConnection();
 /**
  * Save into the database.  
  * 
- * Generic data.  The data can be anything but preferablly json
+ * Generic data.  The data can be anything but preferably json
  * 
  * @param {string} authToken
  * @param {string} device_id
@@ -17,36 +17,37 @@ var pool = db.getPoolConnection();
  * @param {string} label
  * @param {function} callback
  */
-exports.insertGeneric = function(authToken, device_id, data, label, callback){
-    
-    pool.getConnection(function(err, connection) {
-        connection.query('INSERT INTO time_series SET ?', {auth_token: authToken, 
-                                                            device_id: device_id, 
-                                                            data: data, 
-                                                            label: label, 
-                                                            datetime_created: db.timeNow()}, 
-                                                        function(err, result) {
-                                                            if (err){
-                                                                //throw err;
-                                                                console.log('Error: Models/Events/insertGeneric', err);
-                                                            }
+exports.insertGeneric = function (authToken, device_id, data, label, callback) {
 
-            console.log('row id: ' + result.insertId);
+    pool.getConnection(function (err, connection) {
+        connection.query('INSERT INTO time_series SET ?', {
+                auth_token: authToken,
+                device_id: device_id,
+                data: JSON.stringify(data),
+                label: label,
+                datetime_created: db.timeNow()},
+            function (err, result) {
+                if (err) {
+                    //throw err;
+                    console.log('Error: Models/Events/insertGeneric', err);
+                }
 
-            var result = 'success';
-                                                            try{
-                                                                callback(null, result);
-                                                            }catch(e){
-                                                                console.log("Error: MySQL mem leak" + e);
-                                                                //console.log(e);
-                                                            }finally{
-                                                                // And done with the connection.
-                                                                connection.release();
-                                                            }
-            
-            // And done with the connection.
-            connection.release();
-        });
+                console.log('row id: ' + result.insertId);
+
+                var result = 'success';
+                try {
+                    callback(null, result);
+                } catch (e) {
+                    console.log("Error: MySQL mem leak" + e);
+                    //console.log(e);
+                } finally {
+                    // And done with the connection.
+                    connection.release();
+                }
+
+                // And done with the connection.
+                connection.release();
+            });
     });
 };
 
